@@ -216,14 +216,14 @@
                     <div class="modern-card">
                         <div class="table-responsive">
                             <table class="table table-hover align-middle mb-0">
-                                <thead style="background-color: var(--primary); color: white;">
+                                <thead style="background-color: #001f3f; color: white;">
                                     <tr>
-                                        <th>Bil</th>
+                                        <th class="text-center">Bil</th>
                                         <th>Jenis Latihan</th>
                                         <th>Nama Latihan</th>
-                                        <th>Tarikh Mula</th>
-                                        <th>Tarikh Tamat</th>
-                                        <th>Tempoh</th>
+                                        <th class="text-center">Tarikh Mula</th>
+                                        <th class="text-center">Tarikh Tamat</th>
+                                        <th class="text-center">Tempoh</th>
                                         <th>Tempat Latihan</th>
                                     </tr>
                                 </thead>
@@ -310,7 +310,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // Konfigurasi Firebase Anda yang sebenar
+        // Konfigurasi Firebase Anda
         const firebaseConfig = {
             apiKey: "AIzaSyC7pUn-x2jenHI14KBdpK43fPM3DGjuz9A",
             authDomain: "e-latihan-perkhidmatan.firebaseapp.com",
@@ -323,14 +323,6 @@
         // Inisialisasi Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-
-        // Fungsi Title Case seperti kod asal
-        function toTitleCase(str) {
-            if (!str) return "";
-            return str.replace(/\w\S*/g, function(txt) {
-                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-            });
-        }
 
         // Paparkan ruangan input jika "Lain-lain" dipilih
         window.checkLain = function(selectElem, targetId) {
@@ -359,7 +351,7 @@
             }
         }
 
-        // Fungsi Simpan Data ke Firebase Firestore
+        // Fungsi Simpan Data ke Firebase Firestore (Mengekalkan ejaan asal)
         window.simpanDataFirebase = async function() {
             const btn = document.getElementById('btnSimpan');
             
@@ -390,12 +382,12 @@
             try {
                 await addDoc(collection(db, "latihan"), {
                     jenis: jenis,
-                    namaLatihan: toTitleCase(namaLatihan),
+                    namaLatihan: namaLatihan, // Kekal huruf asal
                     tarikhMula: tarikhMula,
                     tarikhTamat: tarikhTamat,
                     tempoh: diffDays + " Hari",
                     tempohHariNum: diffDays,
-                    tempat: toTitleCase(tempat),
+                    tempat: tempat, // Kekal huruf asal
                     createdAt: new Date()
                 });
 
@@ -447,12 +439,12 @@
 
                     rows += `
                         <tr>
-                            <td>${index + 1}</td>
+                            <td class="text-center">${index + 1}</td>
                             <td><span class="badge bg-light text-dark border">${data.jenis}</span></td>
                             <td class="fw-semibold">${data.namaLatihan}</td>
-                            <td>${formatTarikh(data.tarikhMula)}</td>
-                            <td>${formatTarikh(data.tarikhTamat)}</td>
-                            <td>${data.tempoh}</td>
+                            <td class="text-center">${formatTarikh(data.tarikhMula)}</td>
+                            <td class="text-center">${formatTarikh(data.tarikhTamat)}</td>
+                            <td class="text-center">${data.tempoh}</td>
                             <td>${data.tempat}</td>
                         </tr>
                     `;
@@ -479,4 +471,3 @@
     </script>
 </body>
 </html>
-
