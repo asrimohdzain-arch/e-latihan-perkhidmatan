@@ -519,9 +519,11 @@
             }
         }
 
-        // Muat Data dari Firebase Firestore dengan Pembilang Nombor Bil yang Tepat
+        // Muat Data dari Firebase Firestore secara selamat
         async function muatDataLatihan() {
             const tbody = document.getElementById('senaraiLatihanBody');
+            if(!tbody) return;
+            
             tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-muted"><i class="fas fa-spinner fa-spin me-2"></i>Memuatkan data...</td></tr>`;
 
             try {
@@ -532,12 +534,12 @@
                 let totalLatihan = 0;
                 let totalHari = 0;
                 let latihanTerbaru = "-";
-                let no = 1; // Pembilang bil bermula dari 1 yang dijamin bebas NaN
+                let counter = 1; // Nombor bil bermula dari 1 yang selamat
 
                 querySnapshot.forEach((docSnap) => {
                     const data = docSnap.data();
                     totalLatihan++;
-                    totalHari += (data.tempohHariNum || 0);
+                    totalHari += Number(data.tempohHariNum || 0);
                     latihanTerbaru = data.namaLatihan || "-";
 
                     // Format Tarikh dd/mm/yyyy
@@ -552,7 +554,7 @@
 
                     rows += `
                         <tr>
-                            <td class="fw-bold">${no++}</td>
+                            <td class="fw-bold">${counter++}</td>
                             <td><span class="badge bg-light text-dark border">${data.jenis || ''}</span></td>
                             <td class="fw-semibold text-start">${data.namaLatihan || ''}</td>
                             <td>${formatTarikh(data.tarikhMula)}</td>
@@ -570,17 +572,23 @@
                 tbody.innerHTML = rows;
 
                 // Kemaskini Bahagian Analisa (Utama)
-                document.getElementById('stat-jumlah').innerText = totalLatihan;
-                document.getElementById('stat-hari').innerText = totalHari + " Hari";
-                document.getElementById('stat-terkini').innerText = latihanTerbaru;
+                const elJumlah = document.getElementById('stat-jumlah');
+                const elHari = document.getElementById('stat-hari');
+                const elTerkini = document.getElementById('stat-terkini');
+
+                if(elJumlah) elJumlah.innerText = totalLatihan;
+                if(elHari) elHari.innerText = totalHari + " Hari";
+                if(elTerkini) elTerkini.innerText = latihanTerbaru;
 
             } catch (e) {
                 tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-danger">Gagal memuatkan data: ${e.message}</td></tr>`;
             }
         }
 
-        // Muat data awal
-        muatDataLatihan();
+        // Muat data awal secara automatik apabila muka surat dibuka
+        document.addEventListener("DOMContentLoaded", function() {
+            muatDataLatihan();
+        });
     </script>
 </body>
 </html>
