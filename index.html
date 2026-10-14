@@ -19,7 +19,6 @@
             --card-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
             --card-radius: 16px;
         }
-
         body {
             background-color: var(--bg-color);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -27,13 +26,11 @@
             padding: 0;
             color: #333;
         }
-
         .main-container {
             max-width: 600px;
             margin: 0 auto;
             padding: 15px;
         }
-
         /* Top Banner Card */
         .top-banner {
             background: linear-gradient(135deg, var(--primary-maroon), var(--primary-maroon-dark));
@@ -44,45 +41,46 @@
             box-shadow: var(--card-shadow);
             margin-bottom: 20px;
         }
-
         .top-banner h3 {
             font-weight: 800;
             margin: 0;
             letter-spacing: 0.5px;
         }
-
         .top-banner p {
             margin: 4px 0 0 0;
             font-size: 0.88rem;
             opacity: 0.9;
         }
-
-        /* Mobile Grid Menu Cards */
-        .menu-grid {
+        /* Mobile Grid Menu Cards untuk Paparan Utama (2 Butang Utama) */
+        .menu-grid-main {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
             margin-bottom: 20px;
         }
-
+        /* Grid Menu Sub-Butang Dalam Halaman Latihan */
+        .latihan-actions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
         .menu-card {
             background: white;
             border-radius: 14px;
-            padding: 14px 12px;
+            padding: 12px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             box-shadow: var(--card-shadow);
             text-decoration: none;
             color: #2c3e50;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             border: 2px solid transparent;
             transition: all 0.2s ease;
             cursor: pointer;
         }
-
-        /* Butang Hapus Rekod memenuhi ruang penuh di bawah */
         .menu-card.full-width {
             grid-column: span 2;
             justify-content: center;
@@ -90,31 +88,28 @@
             border-color: #feb2b2;
             color: #c0392b;
         }
-
         .menu-card:hover, .menu-card.active {
             border-color: #3182ce;
             box-shadow: 0 8px 20px rgba(49, 130, 206, 0.15);
             color: #1a202c;
         }
-
         .menu-icon {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
+            font-size: 1rem;
             flex-shrink: 0;
             color: white;
         }
-
         .icon-green { background-color: #2ed573; }
         .icon-orange { background-color: #ffa502; }
         .icon-blue { background-color: #3742fa; }
         .icon-red { background-color: #ff4757; }
         .icon-darkred { background-color: #c0392b; }
-
+        
         /* School Info Banner */
         .school-banner {
             background: linear-gradient(135deg, #700000, #400000);
@@ -124,19 +119,16 @@
             margin-bottom: 20px;
             box-shadow: var(--card-shadow);
         }
-
         .school-banner h6 {
             font-weight: 800;
             margin: 0;
             font-size: 1rem;
         }
-
         .school-banner p {
             margin: 2px 0 10px 0;
             font-size: 0.8rem;
             opacity: 0.85;
         }
-
         .date-pill {
             display: inline-block;
             background: rgba(255, 255, 255, 0.15);
@@ -146,7 +138,6 @@
             font-size: 0.8rem;
             font-weight: 600;
         }
-
         /* Modern Card Content Section */
         .modern-card {
             background: white;
@@ -155,7 +146,6 @@
             box-shadow: var(--card-shadow);
             margin-bottom: 20px;
         }
-
         .stat-box {
             border-left: 4px solid var(--primary-maroon);
             background: #fafafa;
@@ -163,7 +153,6 @@
             border-radius: 10px;
             margin-bottom: 12px;
         }
-
         /* Table Styling - Saiz Teks 10px & Kotak Ringkas */
         .table-responsive {
             width: 100%;
@@ -171,17 +160,14 @@
             -webkit-overflow-scrolling: touch;
             border-radius: 10px;
         }
-
         .table {
             min-width: 480px;
             font-size: 10px !important;
         }
-
         .table thead {
             background-color: var(--navy-header) !important;
             color: white !important;
         }
-
         .table thead th {
             padding: 6px 8px !important;
             font-weight: 700;
@@ -192,18 +178,15 @@
             text-align: center;
             white-space: nowrap;
         }
-
         .table tbody td {
             padding: 5px 8px !important;
             font-size: 10px !important;
             vertical-align: middle;
         }
-
         .table .badge {
             font-size: 9px !important;
             padding: 3px 6px !important;
         }
-
         /* Jajaran tengah untuk Bil, Jenis, Tarikh & Tempoh */
         .table tbody td:nth-child(1),
         .table tbody td:nth-child(2),
@@ -212,18 +195,15 @@
         .table tbody td:nth-child(6) {
             text-align: center;
         }
-
         /* Jajaran kiri untuk Nama Latihan & Tempat */
         .table tbody td:nth-child(3),
         .table tbody td:nth-child(7) {
             text-align: left;
         }
-
         .table thead th:nth-child(3),
         .table thead th:nth-child(7) {
             text-align: left;
         }
-
         .btn-custom-primary {
             background-color: var(--primary-maroon);
             color: white;
@@ -233,14 +213,12 @@
             border: none;
             width: 100%;
         }
-
         .btn-custom-primary:hover {
             background-color: var(--primary-maroon-dark);
             color: #ffc107;
         }
-
         @media print {
-            .menu-grid, .school-banner, .top-banner, .no-print, .btn {
+            .menu-grid-main, .latihan-actions-grid, .school-banner, .top-banner, .no-print, .btn {
                 display: none !important;
             }
             .main-container {
@@ -251,11 +229,14 @@
                 box-shadow: none !important;
                 padding: 0 !important;
             }
+            /* Tunjukkan baris yang tersembunyi sewaktu mod cetak berpenapis */
+            tr.d-none-print {
+                display: none !important;
+            }
         }
     </style>
 </head>
 <body>
-
     <div class="main-container">
         
         <!-- Top Header Card -->
@@ -264,42 +245,19 @@
             <p>(Sistem Rekod Latihan Perkhidmatan)</p>
         </div>
 
-        <!-- Mobile Navigation Menu Cards -->
-        <div class="menu-grid">
+        <!-- Mobile Navigation Menu Cards (2 Butang Utama Sahaja Pada Paparan Atas) -->
+        <div class="menu-grid-main no-print">
             <div class="menu-card active" id="btn-tab-utama" onclick="switchTab('utama')">
                 <div class="menu-icon icon-green">
                     <i class="fas fa-home"></i>
                 </div>
                 <div>Utama</div>
             </div>
-
             <div class="menu-card" id="btn-tab-latihan" onclick="switchTab('latihan')">
                 <div class="menu-icon icon-orange">
                     <i class="fas fa-list-alt"></i>
                 </div>
                 <div>Latihan</div>
-            </div>
-
-            <div class="menu-card" onclick="bukaModalTambah()">
-                <div class="menu-icon icon-blue">
-                    <i class="fas fa-plus-circle"></i>
-                </div>
-                <div>Tambah Latihan</div>
-            </div>
-
-            <div class="menu-card" onclick="window.print()">
-                <div class="menu-icon icon-red">
-                    <i class="fas fa-print"></i>
-                </div>
-                <div>Cetak Senarai</div>
-            </div>
-
-            <!-- Butang Hapus Rekod Latihan -->
-            <div class="menu-card full-width" onclick="bukaDialogHapus()">
-                <div class="menu-icon icon-darkred">
-                    <i class="fas fa-trash-alt"></i>
-                </div>
-                <div>Hapus Rekod Latihan</div>
             </div>
         </div>
 
@@ -319,12 +277,10 @@
                     <small class="text-muted d-block">Jumlah Latihan Tahunan</small>
                     <h3 id="stat-jumlah" class="fw-bold m-0 text-dark">0</h3>
                 </div>
-
                 <div class="stat-box">
                     <small class="text-muted d-block">Jumlah Hari Berkursus</small>
                     <h3 id="stat-hari" class="fw-bold m-0 text-dark">0 Hari</h3>
                 </div>
-
                 <div class="stat-box mb-0">
                     <small class="text-muted d-block">Latihan Terkini</small>
                     <h5 id="stat-terkini" class="fw-bold m-0 text-dark">-</h5>
@@ -332,19 +288,38 @@
             </div>
         </div>
 
-        <!-- SEKSYEN 2: LATIHAN (Jadual Rekod) -->
+        <!-- SEKSYEN 2: LATIHAN (Jadual Rekod & Sub-Butang) -->
         <div id="section-latihan" class="content-section" style="display: none;">
+            <!-- Sub-Butang Dalam Halaman Latihan -->
+            <div class="latihan-actions-grid no-print">
+                <div class="menu-card" onclick="bukaModalTambah()">
+                    <div class="menu-icon icon-blue">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div>Tambah Latihan</div>
+                </div>
+                <div class="menu-card" onclick="cetakDenganPengesahanTahun()">
+                    <div class="menu-icon icon-red">
+                        <i class="fas fa-print"></i>
+                    </div>
+                    <div>Cetak Senarai</div>
+                </div>
+                <!-- Butang Hapus Rekod Latihan (Memenuhi ruang di bawah) -->
+                <div class="menu-card full-width" onclick="bukaDialogHapus()">
+                    <div class="menu-icon icon-darkred">
+                        <i class="fas fa-trash-alt"></i>
+                    </div>
+                    <div>Hapus Rekod Latihan</div>
+                </div>
+            </div>
+
             <div class="modern-card">
                 <div class="d-flex justify-content-between align-items-center mb-3 no-print">
                     <h6 class="fw-bold m-0" style="color: var(--primary-maroon);"><i class="fas fa-list me-2"></i>Senarai Rekod Latihan</h6>
-                    <button class="btn btn-sm btn-custom-primary" style="width: auto;" onclick="bukaModalTambah()">
-                        <i class="fas fa-plus me-1"></i> Tambah
-                    </button>
                 </div>
-
                 <!-- Jadual Ringkas & Padat -->
                 <div class="table-responsive">
-                    <table class="table table-hover align-middle mb-0">
+                    <table class="table table-hover align-middle mb-0" id="jadualLatihan">
                         <thead>
                             <tr>
                                 <th>Bil</th>
@@ -365,7 +340,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <!-- MODAL: Tambah Latihan -->
@@ -390,12 +364,10 @@
                             </select>
                             <input type="text" id="divLainJenis" class="form-control mt-2" style="display:none;" placeholder="Nyatakan jenis latihan">
                         </div>
-
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Nama Latihan</label>
                             <input type="text" id="namaLatihan" class="form-control" placeholder="Contoh: LADAP / Kursus IT" required>
                         </div>
-
                         <div class="row">
                             <div class="col-6 mb-3">
                                 <label class="form-label fw-semibold">Tarikh Mula</label>
@@ -406,7 +378,6 @@
                                 <input type="date" id="tarikhTamat" class="form-control" required>
                             </div>
                         </div>
-
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Tempat Latihan</label>
                             <select class="form-select" id="tempatLatihan" required onchange="checkLain(this, 'divLainTempat')">
@@ -419,7 +390,6 @@
                             </select>
                             <input type="text" id="divLainTempat" class="form-control mt-2" style="display:none;" placeholder="Nyatakan lokasi latihan">
                         </div>
-
                         <button type="button" id="btnSimpan" class="btn btn-custom-primary py-2 mt-2" onclick="simpanDataFirebase()">
                             <i class="fas fa-save me-2"></i> Simpan Rekod
                         </button>
@@ -478,6 +448,70 @@
             modal.show();
         }
 
+        // Fungsi Cetak Senarai Dengan Pengesahan Tahun / Cetak Semua Tahun
+        window.cetakDenganPengesahanTahun = async function() {
+            const tahunSemasa = new Date().getFullYear();
+            
+            const result = await Swal.fire({
+                title: 'Pengesahan Cetak',
+                text: 'Masukkan tahun rekod latihan yang ingin dicetak, atau pilih "Cetak Semua Tahun":',
+                input: 'number',
+                inputValue: tahunSemasa,
+                inputAttributes: {
+                    min: 2020,
+                    max: 2099,
+                    step: 1
+                },
+                showCancelButton: true,
+                showDenyButton: true,
+                confirmButtonText: '<i class="fas fa-calendar-alt me-1"></i> Cetak Mengikut Tahun',
+                denyButtonText: '<i class="fas fa-list me-1"></i> Cetak Semua Tahun',
+                cancelButtonText: 'Batal',
+                confirmButtonColor: '#550000',
+                denyButtonColor: '#2ed573'
+            });
+
+            if (result.isDismissed) {
+                return;
+            }
+
+            const trList = document.querySelectorAll('#senaraiLatihanBody tr');
+
+            if (result.isConfirmed) {
+                // Pengguna memilih CETAK TAHUN TERTENTU
+                const tahunPilihan = result.value;
+
+                trList.forEach(tr => {
+                    const tarikhTd = tr.querySelector('td:nth-child(4)');
+                    if (tarikhTd && tahunPilihan !== "") {
+                        const teksTarikh = tarikhTd.innerText.trim(); // Format: DD/MM/YYYY
+                        const parts = teksTarikh.split('/');
+                        const tahunRekod = parts.length === 3 ? parts[2] : '';
+                        
+                        if (tahunRekod !== String(tahunPilihan)) {
+                            tr.classList.add('d-none-print');
+                        } else {
+                            tr.classList.remove('d-none-print');
+                        }
+                    } else {
+                        tr.classList.remove('d-none-print');
+                    }
+                });
+
+            } else if (result.isDenied) {
+                // Pengguna memilih CETAK SEMUA TAHUN
+                trList.forEach(tr => tr.classList.remove('d-none-print'));
+            }
+
+            // Laksanakan Cetakan
+            window.print();
+
+            // Pulihkan semula paparan asal jadual selepas cetak
+            setTimeout(() => {
+                trList.forEach(tr => tr.classList.remove('d-none-print'));
+            }, 1000);
+        }
+
         // Fungsi Hapus Rekod Mengikut Nombor Bil
         window.bukaDialogHapus = async function() {
             const { value: nomorBil } = await Swal.fire({
@@ -501,7 +535,6 @@
                 
                 if (window.senaraiIdDokumen && window.senaraiIdDokumen[indexArray]) {
                     const docIdYangDipadam = window.senaraiIdDokumen[indexArray];
-
                     const sahPadam = await Swal.fire({
                         title: 'Anda pasti?',
                         text: `Rekod Bilangan ${nomorBil} akan dipadam dari sistem.`,
@@ -529,7 +562,7 @@
 
         // Pertukaran Tab
         window.switchTab = function(tabName) {
-            document.querySelectorAll('.menu-card').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.menu-grid-main .menu-card').forEach(el => el.classList.remove('active'));
             
             if(tabName === 'utama') {
                 document.getElementById('btn-tab-utama').classList.add('active');
@@ -553,7 +586,6 @@
             let namaLatihan = document.getElementById('namaLatihan').value;
             let tarikhMula = document.getElementById('tarikhMula').value;
             let tarikhTamat = document.getElementById('tarikhTamat').value;
-
             let tempat = document.getElementById('tempatLatihan').value;
             if (tempat === 'Lain-lain') tempat = document.getElementById('divLainTempat').value;
 
