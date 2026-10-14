@@ -104,7 +104,6 @@
         .icon-orange { background-color: #ffa502; }
         .icon-blue { background-color: #3742fa; }
         .icon-red { background-color: #ff4757; }
-        .icon-purple { background-color: #70a1ff; }
 
         /* School Info Banner */
         .school-banner {
@@ -155,10 +154,16 @@
             margin-bottom: 12px;
         }
 
-        /* Table Styling */
+        /* Table Styling with Horizontal Scroll */
         .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
             border-radius: 12px;
-            overflow: hidden;
+        }
+
+        .table {
+            min-width: 680px;
         }
 
         .table thead {
@@ -173,6 +178,27 @@
             border: none;
             background-color: var(--navy-header) !important;
             color: white !important;
+            text-align: center;
+        }
+
+        /* Jajaran tengah untuk Bil, Jenis, Tarikh & Tempoh */
+        .table tbody td:nth-child(1),
+        .table tbody td:nth-child(2),
+        .table tbody td:nth-child(4),
+        .table tbody td:nth-child(5),
+        .table tbody td:nth-child(6) {
+            text-align: center;
+        }
+
+        /* Jajaran kiri untuk Nama Latihan & Tempat */
+        .table tbody td:nth-child(3),
+        .table tbody td:nth-child(7) {
+            text-align: left;
+        }
+
+        .table thead th:nth-child(3),
+        .table thead th:nth-child(7) {
+            text-align: left;
         }
 
         .btn-custom-primary {
@@ -285,16 +311,17 @@
                     </button>
                 </div>
 
+                <!-- Jadual dengan fungsi skrol kiri-kanan -->
                 <div class="table-responsive">
                     <table class="table table-hover align-middle mb-0">
                         <thead>
                             <tr>
-                                <th class="text-center">Bil</th>
-                                <th class="text-center">Jenis Latihan</th>
+                                <th>Bil</th>
+                                <th>Jenis Latihan</th>
                                 <th>Nama Latihan</th>
-                                <th class="text-center">Tarikh Mula</th>
-                                <th class="text-center">Tarikh Tamat</th>
-                                <th class="text-center">Tempoh</th>
+                                <th>Tarikh Mula</th>
+                                <th>Tarikh Tamat</th>
+                                <th>Tempoh</th>
                                 <th>Tempat Latihan</th>
                             </tr>
                         </thead>
@@ -433,7 +460,7 @@
             }
         }
 
-        // Simpan Data ke Firebase (Tanpa mengubah susunan huruf asal)
+        // Simpan Data ke Firebase
         window.simpanDataFirebase = async function() {
             const btn = document.getElementById('btnSimpan');
             
@@ -464,12 +491,12 @@
             try {
                 await addDoc(collection(db, "latihan"), {
                     jenis: jenis,
-                    namaLatihan: namaLatihan, // Kekal ejaan asal (LADAP, dsb.)
+                    namaLatihan: namaLatihan,
                     tarikhMula: tarikhMula,
                     tarikhTamat: tarikhTamat,
                     tempoh: diffDays + " Hari",
                     tempohHariNum: diffDays,
-                    tempat: tempat, // Kekal ejaan asal
+                    tempat: tempat,
                     createdAt: new Date()
                 });
 
@@ -492,7 +519,7 @@
             }
         }
 
-        // Muat Data dari Firebase Firestore
+        // Muat Data dari Firebase Firestore dengan Pembilang Nombor Bil yang Tepat
         async function muatDataLatihan() {
             const tbody = document.getElementById('senaraiLatihanBody');
             tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-muted"><i class="fas fa-spinner fa-spin me-2"></i>Memuatkan data...</td></tr>`;
@@ -505,29 +532,33 @@
                 let totalLatihan = 0;
                 let totalHari = 0;
                 let latihanTerbaru = "-";
+                let no = 1; // Pembilang bil bermula dari 1 yang dijamin bebas NaN
 
-                querySnapshot.forEach((docSnap, index) => {
+                querySnapshot.forEach((docSnap) => {
                     const data = docSnap.data();
                     totalLatihan++;
                     totalHari += (data.tempohHariNum || 0);
-                    latihanTerbaru = data.namaLatihan;
+                    latihanTerbaru = data.namaLatihan || "-";
 
                     // Format Tarikh dd/mm/yyyy
                     const formatTarikh = (dateStr) => {
                         if(!dateStr) return '';
                         const parts = dateStr.split('-');
-                        return `${parts[2]}/${parts[1]}/${parts[0]}`;
+                        if(parts.length === 3) {
+                            return `${parts[2]}/${parts[1]}/${parts[0]}`;
+                        }
+                        return dateStr;
                     };
 
                     rows += `
                         <tr>
-                            <td class="text-center fw-bold">${index + 1}</td>
-                            <td class="text-center"><span class="badge bg-light text-dark border">${data.jenis}</span></td>
-                            <td class="fw-semibold">${data.namaLatihan}</td>
-                            <td class="text-center">${formatTarikh(data.tarikhMula)}</td>
-                            <td class="text-center">${formatTarikh(data.tarikhTamat)}</td>
-                            <td class="text-center">${data.tempoh}</td>
-                            <td>${data.tempat}</td>
+                            <td class="fw-bold">${no++}</td>
+                            <td><span class="badge bg-light text-dark border">${data.jenis || ''}</span></td>
+                            <td class="fw-semibold text-start">${data.namaLatihan || ''}</td>
+                            <td>${formatTarikh(data.tarikhMula)}</td>
+                            <td>${formatTarikh(data.tarikhTamat)}</td>
+                            <td>${data.tempoh || ''}</td>
+                            <td class="text-start">${data.tempat || ''}</td>
                         </tr>
                     `;
                 });
