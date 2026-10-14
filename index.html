@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>e-Latihan Perkhidmatan</title>
-    <!-- Bootstrap 5 CSS -->
+    <!-- Tambah parameter ?v=2.1 untuk paksa browser muat semula CSS terkini -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         :root {
@@ -31,7 +29,6 @@
             margin: 0 auto;
             padding: 15px;
         }
-        /* Top Banner Card */
         .top-banner {
             background: linear-gradient(135deg, var(--primary-maroon), var(--primary-maroon-dark));
             color: white;
@@ -51,14 +48,12 @@
             font-size: 0.88rem;
             opacity: 0.9;
         }
-        /* Mobile Grid Menu Cards untuk Paparan Utama (2 Butang Utama) */
         .menu-grid-main {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
             margin-bottom: 20px;
         }
-        /* Grid Menu Sub-Butang Dalam Halaman Latihan */
         .latihan-actions-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -110,7 +105,6 @@
         .icon-red { background-color: #ff4757; }
         .icon-darkred { background-color: #c0392b; }
         
-        /* School Info Banner */
         .school-banner {
             background: linear-gradient(135deg, #700000, #400000);
             color: white;
@@ -138,7 +132,6 @@
             font-size: 0.8rem;
             font-weight: 600;
         }
-        /* Modern Card Content Section */
         .modern-card {
             background: white;
             border-radius: var(--card-radius);
@@ -153,7 +146,6 @@
             border-radius: 10px;
             margin-bottom: 12px;
         }
-        /* Table Styling - Saiz Teks 10px & Kotak Ringkas */
         .table-responsive {
             width: 100%;
             overflow-x: auto;
@@ -187,7 +179,6 @@
             font-size: 9px !important;
             padding: 3px 6px !important;
         }
-        /* Jajaran tengah untuk Bil, Jenis, Tarikh & Tempoh */
         .table tbody td:nth-child(1),
         .table tbody td:nth-child(2),
         .table tbody td:nth-child(4),
@@ -195,7 +186,6 @@
         .table tbody td:nth-child(6) {
             text-align: center;
         }
-        /* Jajaran kiri untuk Nama Latihan & Tempat */
         .table tbody td:nth-child(3),
         .table tbody td:nth-child(7) {
             text-align: left;
@@ -229,7 +219,6 @@
                 box-shadow: none !important;
                 padding: 0 !important;
             }
-            /* Tunjukkan baris yang tersembunyi sewaktu mod cetak berpenapis */
             tr.d-none-print {
                 display: none !important;
             }
@@ -239,13 +228,11 @@
 <body>
     <div class="main-container">
         
-        <!-- Top Header Card -->
         <div class="top-banner">
             <h3>e-Latihan</h3>
-            <p>(Sistem Rekod Latihan Perkhidmatan)</p>
+            <p>(Sistem Rekod Latihan Perkhidmatan) - v2.1</p>
         </div>
 
-        <!-- Mobile Navigation Menu Cards (2 Butang Utama Sahaja Pada Paparan Atas) -->
         <div class="menu-grid-main no-print">
             <div class="menu-card active" id="btn-tab-utama" onclick="switchTab('utama')">
                 <div class="menu-icon icon-green">
@@ -261,14 +248,12 @@
             </div>
         </div>
 
-        <!-- Banner Info Sekolah -->
         <div class="school-banner">
             <h6>SMU(A) Khairiah Banggol Setol</h6>
             <p>17070 Pasir Mas, Kelantan</p>
             <div class="date-pill" id="live-date">Memuatkan tarikh...</div>
         </div>
 
-        <!-- SEKSYEN 1: UTAMA (Analisa Rekod) -->
         <div id="section-utama" class="content-section">
             <div class="modern-card">
                 <h5 class="fw-bold mb-3" style="color: var(--primary-maroon);"><i class="fas fa-chart-pie me-2"></i>Analisa Rekod Latihan</h5>
@@ -288,9 +273,7 @@
             </div>
         </div>
 
-        <!-- SEKSYEN 2: LATIHAN (Jadual Rekod & Sub-Butang) -->
         <div id="section-latihan" class="content-section" style="display: none;">
-            <!-- Sub-Butang Dalam Halaman Latihan -->
             <div class="latihan-actions-grid no-print">
                 <div class="menu-card" onclick="bukaModalTambah()">
                     <div class="menu-icon icon-blue">
@@ -304,7 +287,6 @@
                     </div>
                     <div>Cetak Senarai</div>
                 </div>
-                <!-- Butang Hapus Rekod Latihan (Memenuhi ruang di bawah) -->
                 <div class="menu-card full-width" onclick="bukaDialogHapus()">
                     <div class="menu-icon icon-darkred">
                         <i class="fas fa-trash-alt"></i>
@@ -317,7 +299,6 @@
                 <div class="d-flex justify-content-between align-items-center mb-3 no-print">
                     <h6 class="fw-bold m-0" style="color: var(--primary-maroon);"><i class="fas fa-list me-2"></i>Senarai Rekod Latihan</h6>
                 </div>
-                <!-- Jadual Ringkas & Padat -->
                 <div class="table-responsive">
                     <table class="table table-hover align-middle mb-0" id="jadualLatihan">
                         <thead>
@@ -342,7 +323,6 @@
         </div>
     </div>
 
-    <!-- MODAL: Tambah Latihan -->
     <div class="modal fade" id="modalTambahLatihan" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content modern-card m-0">
@@ -399,15 +379,12 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Firebase SDK (Modular v10) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // Konfigurasi Firebase Anda
         const firebaseConfig = {
             apiKey: "AIzaSyC7pUn-x2jenHI14KBdpK43fPM3DGjuz9A",
             authDomain: "e-latihan-perkhidmatan.firebaseapp.com",
@@ -417,18 +394,14 @@
             appId: "1:463410743953:web:8a45c9d51e44b4c2934d30"
         };
 
-        // Inisialisasi Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Simpan senarai ID dokumen secara global mengikut nombor Bil
         window.senaraiIdDokumen = [];
 
-        // Paparkan Tarikh Hari Ini
         const optionsDate = { year: 'numeric', month: 'long', day: 'numeric' };
         document.getElementById('live-date').innerText = new Date().toLocaleDateString('ms-MY', optionsDate);
 
-        // Kawalan Pilihan "Lain-lain"
         window.checkLain = function(selectElem, targetId) {
             const targetInput = document.getElementById(targetId);
             if (selectElem.value === 'Lain-lain') {
@@ -441,14 +414,13 @@
             }
         }
 
-        // Buka Modal Tambah
         window.bukaModalTambah = function() {
             const modalEl = document.getElementById('modalTambahLatihan');
             const modal = new bootstrap.Modal(modalEl);
             modal.show();
         }
 
-        // Fungsi Cetak Senarai Dengan Pengesahan Tahun / Cetak Semua Tahun
+        // Fungsi Cetak dengan pilihan Tahun / Semua Tahun
         window.cetakDenganPengesahanTahun = async function() {
             const tahunSemasa = new Date().getFullYear();
             
@@ -471,20 +443,16 @@
                 denyButtonColor: '#2ed573'
             });
 
-            if (result.isDismissed) {
-                return;
-            }
+            if (result.isDismissed) return;
 
             const trList = document.querySelectorAll('#senaraiLatihanBody tr');
 
             if (result.isConfirmed) {
-                // Pengguna memilih CETAK TAHUN TERTENTU
                 const tahunPilihan = result.value;
-
                 trList.forEach(tr => {
                     const tarikhTd = tr.querySelector('td:nth-child(4)');
                     if (tarikhTd && tahunPilihan !== "") {
-                        const teksTarikh = tarikhTd.innerText.trim(); // Format: DD/MM/YYYY
+                        const teksTarikh = tarikhTd.innerText.trim();
                         const parts = teksTarikh.split('/');
                         const tahunRekod = parts.length === 3 ? parts[2] : '';
                         
@@ -497,22 +465,17 @@
                         tr.classList.remove('d-none-print');
                     }
                 });
-
             } else if (result.isDenied) {
-                // Pengguna memilih CETAK SEMUA TAHUN
                 trList.forEach(tr => tr.classList.remove('d-none-print'));
             }
 
-            // Laksanakan Cetakan
             window.print();
 
-            // Pulihkan semula paparan asal jadual selepas cetak
             setTimeout(() => {
                 trList.forEach(tr => tr.classList.remove('d-none-print'));
             }, 1000);
         }
 
-        // Fungsi Hapus Rekod Mengikut Nombor Bil
         window.bukaDialogHapus = async function() {
             const { value: nomorBil } = await Swal.fire({
                 title: 'Hapus Rekod Latihan',
@@ -524,15 +487,12 @@
                 cancelButtonText: 'Batal',
                 confirmButtonColor: '#550000',
                 inputValidator: (value) => {
-                    if (!value) {
-                        return 'Anda mesti memasukkan nombor Bil!';
-                    }
+                    if (!value) return 'Anda mesti memasukkan nombor Bil!';
                 }
             });
 
             if (nomorBil) {
                 const indexArray = parseInt(nomorBil) - 1;
-                
                 if (window.senaraiIdDokumen && window.senaraiIdDokumen[indexArray]) {
                     const docIdYangDipadam = window.senaraiIdDokumen[indexArray];
                     const sahPadam = await Swal.fire({
@@ -560,7 +520,6 @@
             }
         }
 
-        // Pertukaran Tab
         window.switchTab = function(tabName) {
             document.querySelectorAll('.menu-grid-main .menu-card').forEach(el => el.classList.remove('active'));
             
@@ -576,13 +535,10 @@
             }
         }
 
-        // Simpan Data ke Firebase
         window.simpanDataFirebase = async function() {
             const btn = document.getElementById('btnSimpan');
-            
             let jenis = document.getElementById('jenisLatihan').value;
             if (jenis === 'Lain-lain') jenis = document.getElementById('divLainJenis').value;
-
             let namaLatihan = document.getElementById('namaLatihan').value;
             let tarikhMula = document.getElementById('tarikhMula').value;
             let tarikhTamat = document.getElementById('tarikhTamat').value;
@@ -632,7 +588,6 @@
             }
         }
 
-        // Muat Data dari Firebase Firestore
         async function muatDataLatihan() {
             const tbody = document.getElementById('senaraiLatihanBody');
             if(!tbody) return;
@@ -656,7 +611,6 @@
                     totalLatihan++;
                     totalHari += Number(data.tempohHariNum || 0);
                     latihanTerbaru = data.namaLatihan || "-";
-
                     window.senaraiIdDokumen.push(docSnap.id);
 
                     const formatTarikh = (dateStr) => {
