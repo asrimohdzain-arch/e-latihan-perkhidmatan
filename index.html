@@ -57,7 +57,7 @@
             opacity: 0.9;
         }
 
-        /* Mobile Grid Menu Cards */
+        /* Mobile Grid Menu Cards - Diubah kepada 2 kolum seimbang untuk 5 butang */
         .menu-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -76,10 +76,19 @@
             text-decoration: none;
             color: #2c3e50;
             font-weight: 700;
-            font-size: 0.92rem;
+            font-size: 0.9rem;
             border: 2px solid transparent;
             transition: all 0.2s ease;
             cursor: pointer;
+        }
+
+        /* Butang terakhir (Hapus Rekod) memenuhi ruang penuh di bawah */
+        .menu-card.full-width {
+            grid-column: span 2;
+            justify-content: center;
+            background: #fff5f5;
+            border-color: #feb2b2;
+            color: #c0392b;
         }
 
         .menu-card:hover, .menu-card.active {
@@ -89,13 +98,13 @@
         }
 
         .menu-icon {
-            width: 42px;
-            height: 42px;
+            width: 40px;
+            height: 40px;
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             flex-shrink: 0;
             color: white;
         }
@@ -104,6 +113,7 @@
         .icon-orange { background-color: #ffa502; }
         .icon-blue { background-color: #3742fa; }
         .icon-red { background-color: #ff4757; }
+        .icon-darkred { background-color: #c0392b; }
 
         /* School Info Banner */
         .school-banner {
@@ -154,16 +164,17 @@
             margin-bottom: 12px;
         }
 
-        /* Table Styling with Horizontal Scroll */
+        /* Table Styling - Saiz Teks 10px & Kotak Ringkas */
         .table-responsive {
             width: 100%;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
-            border-radius: 12px;
+            border-radius: 10px;
         }
 
         .table {
-            min-width: 680px;
+            min-width: 480px;
+            font-size: 10px !important;
         }
 
         .table thead {
@@ -172,13 +183,25 @@
         }
 
         .table thead th {
-            padding: 12px 10px;
-            font-weight: 600;
-            font-size: 0.88rem;
+            padding: 6px 8px !important;
+            font-weight: 700;
+            font-size: 10px !important;
             border: none;
             background-color: var(--navy-header) !important;
             color: white !important;
             text-align: center;
+            white-space: nowrap;
+        }
+
+        .table tbody td {
+            padding: 5px 8px !important;
+            font-size: 10px !important;
+            vertical-align: middle;
+        }
+
+        .table .badge {
+            font-size: 9px !important;
+            padding: 3px 6px !important;
         }
 
         /* Jajaran tengah untuk Bil, Jenis, Tarikh & Tempoh */
@@ -241,7 +264,7 @@
             <p>(Sistem Rekod Latihan Perkhidmatan)</p>
         </div>
 
-        <!-- Mobile Navigation Menu Cards (Grid 2 Kolum) -->
+        <!-- Mobile Navigation Menu Cards (Grid 5 Butang Tersusun) -->
         <div class="menu-grid">
             <div class="menu-card active" id="btn-tab-utama" onclick="switchTab('utama')">
                 <div class="menu-icon icon-green">
@@ -269,6 +292,14 @@
                     <i class="fas fa-print"></i>
                 </div>
                 <div>Cetak Senarai</div>
+            </div>
+
+            <!-- Butang Hapus Rekod (Lebar Penuh) -->
+            <div class="menu-card full-width" onclick="bukaDialogHapus()">
+                <div class="menu-icon icon-darkred">
+                    <i class="fas fa-trash-alt"></i>
+                </div>
+                <div>Hapus Rekod Latihan</div>
             </div>
         </div>
 
@@ -311,7 +342,7 @@
                     </button>
                 </div>
 
-                <!-- Jadual dengan fungsi skrol kiri-kanan -->
+                <!-- Jadual Ringkas & Padat -->
                 <div class="table-responsive">
                     <table class="table table-hover align-middle mb-0">
                         <thead>
@@ -327,7 +358,7 @@
                         </thead>
                         <tbody id="senaraiLatihanBody">
                             <tr>
-                                <td colspan="7" class="text-center py-4 text-muted">Memuatkan data dari pangkalan data...</td>
+                                <td colspan="7" class="text-center py-3 text-muted">Memuatkan data dari pangkalan data...</td>
                             </tr>
                         </tbody>
                     </table>
@@ -404,7 +435,7 @@
     <!-- Firebase SDK (Modular v10) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         // Konfigurasi Firebase Anda
         const firebaseConfig = {
@@ -419,6 +450,9 @@
         // Inisialisasi Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+
+        // Simpan senarai ID dokumen secara global mengikut nombor Bil
+        window.senaraiIdDokumen = [];
 
         // Paparkan Tarikh Hari Ini
         const optionsDate = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -442,6 +476,55 @@
             const modalEl = document.getElementById('modalTambahLatihan');
             const modal = new bootstrap.Modal(modalEl);
             modal.show();
+        }
+
+        // Fungsi Hapus Rekod Mengikut Nombor Bil
+        window.bukaDialogHapus = async function() {
+            const { value: nomorBil } = await Swal.fire({
+                title: 'Hapus Rekod Latihan',
+                input: 'number',
+                inputLabel: 'Sila pilih Bil untuk dihapus:',
+                inputPlaceholder: 'Masukkan nombor Bil (cth: 1)',
+                showCancelButton: true,
+                confirmButtonText: 'Teruskan',
+                cancelButtonText: 'Batal',
+                confirmButtonColor: '#550000',
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'Anda mesti memasukkan nombor Bil!';
+                    }
+                }
+            });
+
+            if (nomorBil) {
+                const indexArray = parseInt(nomorBil) - 1;
+                
+                if (window.senaraiIdDokumen && window.senaraiIdDokumen[indexArray]) {
+                    const docIdYangDipadam = window.senaraiIdDokumen[indexArray];
+
+                    const sahPadam = await Swal.fire({
+                        title: 'Anda pasti?',
+                        text: `Rekod Bilangan ${nomorBil} akan dipadam dari sistem.`,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Ya, Hapus!',
+                        cancelButtonText: 'Batal',
+                        confirmButtonColor: '#d33'
+                    });
+
+                    if (sahPadam.isConfirmed) {
+                        try {
+                            await deleteDoc(doc(db, "latihan", docIdYangDipadam));
+                            Swal.fire('Berjaya!', 'Rekod telah berjaya dihapuskan.', 'success');
+                            muatDataLatihan();
+                        } catch (e) {
+                            Swal.fire('Ralat!', 'Gagal memadam rekod: ' + e.message, 'error');
+                        }
+                    }
+                } else {
+                    Swal.fire('Tidak Dijumpai', `Nombor Bil ${nomorBil} tidak wujud dalam senarai rekod semasa.`, 'error');
+                }
+            }
         }
 
         // Pertukaran Tab
@@ -479,7 +562,6 @@
                 return;
             }
 
-            // Kira tempoh hari
             const mula = new Date(tarikhMula);
             const tamat = new Date(tarikhTamat);
             const diffTime = Math.abs(tamat - mula);
@@ -505,7 +587,6 @@
                 document.getElementById('divLainJenis').style.display = 'none';
                 document.getElementById('divLainTempat').style.display = 'none';
                 
-                // Tutup modal
                 const modalEl = document.getElementById('modalTambahLatihan');
                 const modal = bootstrap.Modal.getInstance(modalEl);
                 if(modal) modal.hide();
@@ -519,12 +600,12 @@
             }
         }
 
-        // Muat Data dari Firebase Firestore secara selamat
+        // Muat Data dari Firebase Firestore
         async function muatDataLatihan() {
             const tbody = document.getElementById('senaraiLatihanBody');
             if(!tbody) return;
             
-            tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-muted"><i class="fas fa-spinner fa-spin me-2"></i>Memuatkan data...</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="7" class="text-center py-3 text-muted"><i class="fas fa-spinner fa-spin me-2"></i>Memuatkan data...</td></tr>`;
 
             try {
                 const q = query(collection(db, "latihan"), orderBy("tarikhMula", "asc"));
@@ -534,7 +615,9 @@
                 let totalLatihan = 0;
                 let totalHari = 0;
                 let latihanTerbaru = "-";
-                let counter = 1; // Nombor bil bermula dari 1 yang selamat
+                let counter = 1;
+                
+                window.senaraiIdDokumen = [];
 
                 querySnapshot.forEach((docSnap) => {
                     const data = docSnap.data();
@@ -542,7 +625,8 @@
                     totalHari += Number(data.tempohHariNum || 0);
                     latihanTerbaru = data.namaLatihan || "-";
 
-                    // Format Tarikh dd/mm/yyyy
+                    window.senaraiIdDokumen.push(docSnap.id);
+
                     const formatTarikh = (dateStr) => {
                         if(!dateStr) return '';
                         const parts = dateStr.split('-');
@@ -566,12 +650,11 @@
                 });
 
                 if(totalLatihan === 0) {
-                    rows = `<tr><td colspan="7" class="text-center py-4 text-muted">Tiada rekod latihan dijumpai.</td></tr>`;
+                    rows = `<tr><td colspan="7" class="text-center py-3 text-muted">Tiada rekod latihan dijumpai.</td></tr>`;
                 }
 
                 tbody.innerHTML = rows;
 
-                // Kemaskini Bahagian Analisa (Utama)
                 const elJumlah = document.getElementById('stat-jumlah');
                 const elHari = document.getElementById('stat-hari');
                 const elTerkini = document.getElementById('stat-terkini');
@@ -581,11 +664,10 @@
                 if(elTerkini) elTerkini.innerText = latihanTerbaru;
 
             } catch (e) {
-                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-danger">Gagal memuatkan data: ${e.message}</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-3 text-danger">Gagal memuatkan data: ${e.message}</td></tr>`;
             }
         }
 
-        // Muat data awal secara automatik apabila muka surat dibuka
         document.addEventListener("DOMContentLoaded", function() {
             muatDataLatihan();
         });
