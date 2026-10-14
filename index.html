@@ -1,3 +1,5 @@
+Berikut adalah kod penuh fail index.html yang terkini, lengkap dengan butang "Hapus Rekod Latihan" yang tersusun kemas pada menu grid, fungsi kotak pengesahan SweetAlert2, serta tetapan saiz fon jadual 10px yang ringkas dan padat.
+Sila salin keseluruhan kod di bawah ini, tampal ke dalam fail index.html anda, dan pastikan anda menekan butang Commit changes di GitHub:
 <!DOCTYPE html>
 <html lang="ms">
 <head>
@@ -57,7 +59,7 @@
             opacity: 0.9;
         }
 
-        /* Mobile Grid Menu Cards - Diubah kepada 2 kolum seimbang untuk 5 butang */
+        /* Mobile Grid Menu Cards */
         .menu-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -82,7 +84,7 @@
             cursor: pointer;
         }
 
-        /* Butang terakhir (Hapus Rekod) memenuhi ruang penuh di bawah */
+        /* Butang Hapus Rekod memenuhi ruang penuh di bawah */
         .menu-card.full-width {
             grid-column: span 2;
             justify-content: center;
@@ -264,7 +266,7 @@
             <p>(Sistem Rekod Latihan Perkhidmatan)</p>
         </div>
 
-        <!-- Mobile Navigation Menu Cards (Grid 5 Butang Tersusun) -->
+        <!-- Mobile Navigation Menu Cards -->
         <div class="menu-grid">
             <div class="menu-card active" id="btn-tab-utama" onclick="switchTab('utama')">
                 <div class="menu-icon icon-green">
@@ -294,7 +296,7 @@
                 <div>Cetak Senarai</div>
             </div>
 
-            <!-- Butang Hapus Rekod (Lebar Penuh) -->
+            <!-- Butang Hapus Rekod Latihan -->
             <div class="menu-card full-width" onclick="bukaDialogHapus()">
                 <div class="menu-icon icon-darkred">
                     <i class="fas fa-trash-alt"></i>
@@ -674,3 +676,4 @@
     </script>
 </body>
 </html>
+
