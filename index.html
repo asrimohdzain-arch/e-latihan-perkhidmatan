@@ -4,21 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>e-Latihan Perkhidmatan</title>
-    <!-- Bootstrap 5 CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- Bootstrap 5 CSS dengan Cache-Busting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css?v=20261015">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=20261015">
     <!-- SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11?v=20261015"></script>
     <style>
         :root {
             --primary-maroon: #550000;
             --primary-maroon-dark: #3b0000;
             --navy-header: #001f3f;
             --bg-color: #f2f4f8;
-            --card-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
-            --card-radius: 16px;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --card-radius: 14px;
         }
+
         body {
             background-color: var(--bg-color);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -26,142 +27,178 @@
             padding: 0;
             color: #333;
         }
+
         .main-container {
-            max-width: 600px;
+            max-width: 500px;
             margin: 0 auto;
-            padding: 15px;
+            padding: 12px;
         }
+
+        /* Top Banner Card */
         .top-banner {
             background: linear-gradient(135deg, var(--primary-maroon), var(--primary-maroon-dark));
             color: white;
-            padding: 22px 15px;
+            padding: 16px 12px;
             border-radius: var(--card-radius);
             text-align: center;
             box-shadow: var(--card-shadow);
-            margin-bottom: 20px;
+            margin-bottom: 14px;
         }
-        .top-banner h3 {
+
+        .top-banner h4 {
             font-weight: 800;
             margin: 0;
             letter-spacing: 0.5px;
+            font-size: 1.3rem;
         }
+
         .top-banner p {
-            margin: 4px 0 0 0;
-            font-size: 0.88rem;
+            margin: 3px 0 0 0;
+            font-size: 0.8rem;
             opacity: 0.9;
         }
-        .menu-grid-main {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        .latihan-actions-grid {
+
+        /* Mobile Grid Menu Cards - 2 Kolum Sama Saiz & Lebih Kompak */
+        .menu-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 14px;
         }
+
         .menu-card {
             background: white;
-            border-radius: 14px;
-            padding: 12px;
+            border-radius: 12px;
+            padding: 8px 10px;
             display: flex;
             align-items: center;
             gap: 10px;
             box-shadow: var(--card-shadow);
             text-decoration: none;
             color: #2c3e50;
-            font-weight: 700;
-            font-size: 0.88rem;
-            border: 2px solid transparent;
+            font-weight: 600;
+            font-size: 0.78rem; /* Dikecilkan sedikit supaya kemas */
+            border: 1.5px solid transparent;
             transition: all 0.2s ease;
             cursor: pointer;
+            min-height: 50px;
         }
-        .menu-card.full-width {
-            grid-column: span 2;
-            justify-content: center;
+
+        /* Istimewa untuk Hapus Rekod: Diselaraskan saiz dalam grid */
+        .menu-card.delete-card {
             background: #fff5f5;
             border-color: #feb2b2;
             color: #c0392b;
         }
+
         .menu-card:hover, .menu-card.active {
             border-color: #3182ce;
-            box-shadow: 0 8px 20px rgba(49, 130, 206, 0.15);
+            box-shadow: 0 6px 15px rgba(49, 130, 206, 0.12);
             color: #1a202c;
         }
+
         .menu-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
+            font-size: 0.9rem;
             flex-shrink: 0;
             color: white;
         }
+
         .icon-green { background-color: #2ed573; }
         .icon-orange { background-color: #ffa502; }
         .icon-blue { background-color: #3742fa; }
         .icon-red { background-color: #ff4757; }
         .icon-darkred { background-color: #c0392b; }
-        
+
+        /* Penyesuaian Saiz Butang Dalam Kotak Dialog SweetAlert2 */
+        .swal2-popup .swal2-styled {
+            font-size: 0.75rem !important;
+            padding: 6px 14px !important;
+            border-radius: 6px !important;
+        }
+        .swal2-popup .swal2-title {
+            font-size: 1.15rem !important;
+        }
+        .swal2-popup .swal2-html-container {
+            font-size: 0.85rem !important;
+        }
+        .swal2-popup .form-control, .swal2-popup .form-select {
+            font-size: 0.82rem !important;
+            padding: 6px 10px !important;
+        }
+
+        /* School Info Banner */
         .school-banner {
             background: linear-gradient(135deg, #700000, #400000);
             color: white;
             border-radius: var(--card-radius);
-            padding: 16px;
-            margin-bottom: 20px;
+            padding: 12px;
+            margin-bottom: 14px;
             box-shadow: var(--card-shadow);
         }
+
         .school-banner h6 {
             font-weight: 800;
             margin: 0;
-            font-size: 1rem;
+            font-size: 0.9rem;
         }
+
         .school-banner p {
-            margin: 2px 0 10px 0;
-            font-size: 0.8rem;
+            margin: 2px 0 8px 0;
+            font-size: 0.75rem;
             opacity: 0.85;
         }
+
         .date-pill {
             display: inline-block;
             background: rgba(255, 255, 255, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 5px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.75rem;
             font-weight: 600;
         }
+
+        /* Modern Card Content Section */
         .modern-card {
             background: white;
             border-radius: var(--card-radius);
-            padding: 20px;
+            padding: 15px;
             box-shadow: var(--card-shadow);
-            margin-bottom: 20px;
+            margin-bottom: 14px;
         }
+
         .stat-box {
             border-left: 4px solid var(--primary-maroon);
             background: #fafafa;
-            padding: 14px;
-            border-radius: 10px;
-            margin-bottom: 12px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
         }
+
+        /* Table Styling - Saiz Teks 10px & Kotak Ringkas */
         .table-responsive {
             width: 100%;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
-            border-radius: 10px;
+            border-radius: 8px;
         }
+
         .table {
             min-width: 480px;
             font-size: 10px !important;
         }
+
         .table thead {
             background-color: var(--navy-header) !important;
             color: white !important;
         }
+
         .table thead th {
             padding: 6px 8px !important;
             font-weight: 700;
@@ -172,15 +209,19 @@
             text-align: center;
             white-space: nowrap;
         }
+
         .table tbody td {
             padding: 5px 8px !important;
             font-size: 10px !important;
             vertical-align: middle;
         }
+
         .table .badge {
             font-size: 9px !important;
             padding: 3px 6px !important;
         }
+
+        /* Jajaran tengah untuk Bil, Jenis, Tarikh & Tempoh */
         .table tbody td:nth-child(1),
         .table tbody td:nth-child(2),
         .table tbody td:nth-child(4),
@@ -188,145 +229,146 @@
         .table tbody td:nth-child(6) {
             text-align: center;
         }
+
+        /* Jajaran kiri untuk Nama Latihan & Tempat */
         .table tbody td:nth-child(3),
         .table tbody td:nth-child(7) {
             text-align: left;
         }
+
         .table thead th:nth-child(3),
         .table thead th:nth-child(7) {
             text-align: left;
         }
+
         .btn-custom-primary {
             background-color: var(--primary-maroon);
             color: white;
-            border-radius: 10px;
-            padding: 10px;
+            border-radius: 8px;
+            padding: 8px;
             font-weight: 600;
             border: none;
             width: 100%;
+            font-size: 0.82rem;
         }
+
         .btn-custom-primary:hover {
             background-color: var(--primary-maroon-dark);
             color: #ffc107;
         }
 
-        /* FORMAT KHUSUS UNTUK CETAKAN */
         @media print {
-            .no-print, .menu-grid-main, .latihan-actions-grid, .school-banner, .top-banner, #section-utama, .btn, .modal {
+            .menu-grid, .school-banner, .top-banner, .no-print, .btn {
                 display: none !important;
-            }
-            body, html {
-                background: white !important;
-                color: black !important;
             }
             .main-container {
                 max-width: 100% !important;
-                width: 100% !important;
-                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .modern-card {
+                box-shadow: none !important;
                 padding: 0 !important;
             }
             #section-latihan {
                 display: block !important;
             }
-            .modern-card {
-                box-shadow: none !important;
-                padding: 0 !important;
-                margin: 0 !important;
-            }
-            .table-responsive {
-                overflow: visible !important;
-            }
-            .table {
-                width: 100% !important;
-                border: 1px solid #000 !important;
-            }
-            .table th, .table td {
-                border: 1px solid #000 !important;
-            }
-            tr.d-none-print {
+            #section-utama {
                 display: none !important;
             }
         }
     </style>
 </head>
 <body>
+
     <div class="main-container">
         
-        <div class="top-banner no-print">
-            <h3>e-Latihan</h3>
-            <p>(Sistem Rekod Latihan Perkhidmatan) - v2.2</p>
+        <!-- Top Header Card -->
+        <div class="top-banner">
+            <h4>e-Latihan</h4>
+            <p>(Sistem Rekod Latihan Perkhidmatan) - v2.3</p>
         </div>
 
-        <div class="menu-grid-main no-print">
+        <!-- Mobile Navigation Menu Cards (2 Kolum Kemas & Sama Saiz) -->
+        <div class="menu-grid">
             <div class="menu-card active" id="btn-tab-utama" onclick="switchTab('utama')">
                 <div class="menu-icon icon-green">
                     <i class="fas fa-home"></i>
                 </div>
                 <div>Utama</div>
             </div>
+
             <div class="menu-card" id="btn-tab-latihan" onclick="switchTab('latihan')">
                 <div class="menu-icon icon-orange">
                     <i class="fas fa-list-alt"></i>
                 </div>
                 <div>Latihan</div>
             </div>
+
+            <div class="menu-card" onclick="bukaModalTambah()">
+                <div class="menu-icon icon-blue">
+                    <i class="fas fa-plus-circle"></i>
+                </div>
+                <div>Tambah Latihan</div>
+            </div>
+
+            <div class="menu-card" onclick="bukaPilihanCetak()">
+                <div class="menu-icon icon-red">
+                    <i class="fas fa-print"></i>
+                </div>
+                <div>Cetak Senarai</div>
+            </div>
+
+            <!-- Butang Hapus Rekod Diselaraskan Saiz Sama Kolum -->
+            <div class="menu-card delete-card" onclick="bukaDialogHapus()">
+                <div class="menu-icon icon-darkred">
+                    <i class="fas fa-trash-alt"></i>
+                </div>
+                <div>Hapus Rekod</div>
+            </div>
         </div>
 
-        <div class="school-banner no-print">
+        <!-- Banner Info Sekolah -->
+        <div class="school-banner">
             <h6>SMU(A) Khairiah Banggol Setol</h6>
             <p>17070 Pasir Mas, Kelantan</p>
             <div class="date-pill" id="live-date">Memuatkan tarikh...</div>
         </div>
 
-        <!-- SEKSYEN 1: UTAMA -->
+        <!-- SEKSYEN 1: UTAMA (Analisa Rekod) -->
         <div id="section-utama" class="content-section">
             <div class="modern-card">
-                <h5 class="fw-bold mb-3" style="color: var(--primary-maroon);"><i class="fas fa-chart-pie me-2"></i>Analisa Rekod Latihan</h5>
+                <h6 class="fw-bold mb-3" style="color: var(--primary-maroon);"><i class="fas fa-chart-pie me-2"></i>Analisa Rekod Latihan</h6>
                 
                 <div class="stat-box">
                     <small class="text-muted d-block">Jumlah Latihan Tahunan</small>
-                    <h3 id="stat-jumlah" class="fw-bold m-0 text-dark">0</h3>
+                    <h4 id="stat-jumlah" class="fw-bold m-0 text-dark">0</h4>
                 </div>
+
                 <div class="stat-box">
                     <small class="text-muted d-block">Jumlah Hari Berkursus</small>
-                    <h3 id="stat-hari" class="fw-bold m-0 text-dark">0 Hari</h3>
+                    <h4 id="stat-hari" class="fw-bold m-0 text-dark">0 Hari</h4>
                 </div>
+
                 <div class="stat-box mb-0">
                     <small class="text-muted d-block">Latihan Terkini</small>
-                    <h5 id="stat-terkini" class="fw-bold m-0 text-dark">-</h5>
+                    <h6 id="stat-terkini" class="fw-bold m-0 text-dark">-</h6>
                 </div>
             </div>
         </div>
 
-        <!-- SEKSYEN 2: LATIHAN -->
+        <!-- SEKSYEN 2: LATIHAN (Jadual Rekod) -->
         <div id="section-latihan" class="content-section" style="display: none;">
-            <div class="latihan-actions-grid no-print">
-                <div class="menu-card" onclick="bukaModalTambah()">
-                    <div class="menu-icon icon-blue">
-                        <i class="fas fa-plus-circle"></i>
-                    </div>
-                    <div>Tambah Latihan</div>
-                </div>
-                <div class="menu-card" onclick="cetakDenganPengesahanTahun()">
-                    <div class="menu-icon icon-red">
-                        <i class="fas fa-print"></i>
-                    </div>
-                    <div>Cetak Senarai</div>
-                </div>
-                <div class="menu-card full-width" onclick="bukaDialogHapus()">
-                    <div class="menu-icon icon-darkred">
-                        <i class="fas fa-trash-alt"></i>
-                    </div>
-                    <div>Hapus Rekod Latihan</div>
-                </div>
-            </div>
-
             <div class="modern-card">
                 <div class="d-flex justify-content-between align-items-center mb-3 no-print">
                     <h6 class="fw-bold m-0" style="color: var(--primary-maroon);"><i class="fas fa-list me-2"></i>Senarai Rekod Latihan</h6>
+                    <button class="btn btn-sm btn-custom-primary" style="width: auto;" onclick="bukaModalTambah()">
+                        <i class="fas fa-plus me-1"></i> Tambah
+                    </button>
                 </div>
+
+                <!-- Jadual Ringkas & Padat -->
                 <div class="table-responsive">
-                    <table class="table table-hover align-middle mb-0" id="jadualLatihan">
+                    <table class="table table-hover align-middle mb-0">
                         <thead>
                             <tr>
                                 <th>Bil</th>
@@ -347,21 +389,22 @@
                 </div>
             </div>
         </div>
+
     </div>
 
-    <!-- MODAL TAMBAH LATIHAN -->
+    <!-- MODAL: Tambah Latihan -->
     <div class="modal fade" id="modalTambahLatihan" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content modern-card m-0">
                 <div class="modal-header border-0 pb-0">
-                    <h5 class="fw-bold" style="color: var(--primary-maroon);"><i class="fas fa-plus-circle me-2"></i>Tambah Rekod Latihan</h5>
+                    <h6 class="fw-bold" style="color: var(--primary-maroon);"><i class="fas fa-plus-circle me-2"></i>Tambah Rekod Latihan</h6>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
                 </div>
                 <div class="modal-body">
                     <form id="trainingForm">
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">Jenis Latihan</label>
-                            <select class="form-select" id="jenisLatihan" required onchange="checkLain(this, 'divLainJenis')">
+                        <div class="mb-2">
+                            <label class="form-label fw-semibold small">Jenis Latihan</label>
+                            <select class="form-select form-select-sm" id="jenisLatihan" required onchange="checkLain(this, 'divLainJenis')">
                                 <option value="">Sila Pilih</option>
                                 <option value="Kursus">Kursus</option>
                                 <option value="Seminar">Seminar</option>
@@ -369,25 +412,28 @@
                                 <option value="Taklimat">Taklimat</option>
                                 <option value="Lain-lain">Lain-lain</option>
                             </select>
-                            <input type="text" id="divLainJenis" class="form-control mt-2" style="display:none;" placeholder="Nyatakan jenis latihan">
+                            <input type="text" id="divLainJenis" class="form-control form-control-sm mt-2" style="display:none;" placeholder="Nyatakan jenis latihan">
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">Nama Latihan</label>
-                            <input type="text" id="namaLatihan" class="form-control" placeholder="Contoh: LADAP / Kursus IT" required>
+
+                        <div class="mb-2">
+                            <label class="form-label fw-semibold small">Nama Latihan</label>
+                            <input type="text" id="namaLatihan" class="form-control form-control-sm" placeholder="Contoh: LADAP / Kursus IT" required>
                         </div>
+
                         <div class="row">
-                            <div class="col-6 mb-3">
-                                <label class="form-label fw-semibold">Tarikh Mula</label>
-                                <input type="date" id="tarikhMula" class="form-control" required>
+                            <div class="col-6 mb-2">
+                                <label class="form-label fw-semibold small">Tarikh Mula</label>
+                                <input type="date" id="tarikhMula" class="form-control form-control-sm" required>
                             </div>
-                            <div class="col-6 mb-3">
-                                <label class="form-label fw-semibold">Tarikh Tamat</label>
-                                <input type="date" id="tarikhTamat" class="form-control" required>
+                            <div class="col-6 mb-2">
+                                <label class="form-label fw-semibold small">Tarikh Tamat</label>
+                                <input type="date" id="tarikhTamat" class="form-control form-control-sm" required>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">Tempat Latihan</label>
-                            <select class="form-select" id="tempatLatihan" required onchange="checkLain(this, 'divLainTempat')">
+
+                        <div class="mb-2">
+                            <label class="form-label fw-semibold small">Tempat Latihan</label>
+                            <select class="form-select form-select-sm" id="tempatLatihan" required onchange="checkLain(this, 'divLainTempat')">
                                 <option value="">Sila Pilih</option>
                                 <option value="YIK">YIK</option>
                                 <option value="SUK">SUK</option>
@@ -395,8 +441,9 @@
                                 <option value="PPD">PPD</option>
                                 <option value="Lain-lain">Lain-lain</option>
                             </select>
-                            <input type="text" id="divLainTempat" class="form-control mt-2" style="display:none;" placeholder="Nyatakan lokasi latihan">
+                            <input type="text" id="divLainTempat" class="form-control form-control-sm mt-2" style="display:none;" placeholder="Nyatakan lokasi latihan">
                         </div>
+
                         <button type="button" id="btnSimpan" class="btn btn-custom-primary py-2 mt-2" onclick="simpanDataFirebase()">
                             <i class="fas fa-save me-2"></i> Simpan Rekod
                         </button>
@@ -406,8 +453,10 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js?v=20261015"></script>
 
+    <!-- Firebase SDK (Modular v10) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -447,70 +496,45 @@
             modal.show();
         }
 
-        // FUNGSI CETAK DENGAN PENAMBAHBAIKAN MENCEGAH SKRIN KOSONG
-        window.cetakDenganPengesahanTahun = async function() {
+        // Fungsi Cetak Menyeluruh & Mengikut Tahun (Dwi-Butang Kompak)
+        window.bukaPilihanCetak = async function() {
             const tahunSemasa = new Date().getFullYear();
+            const senaraiTahun = [tahunSemasa, tahunSemasa - 1, tahunSemasa - 2, tahunSemasa - 3];
             
-            const result = await Swal.fire({
+            let optionsHTML = '';
+            senaraiTahun.forEach(t => {
+                optionsHTML += `<option value="${t}">${t}</option>`;
+            });
+
+            const { value: result } = await Swal.fire({
                 title: 'Pengesahan Cetak',
-                text: 'Masukkan tahun rekod latihan yang ingin dicetak, atau pilih "Cetak Semua Tahun":',
-                input: 'number',
-                inputValue: tahunSemasa,
-                inputAttributes: {
-                    min: 2020,
-                    max: 2099,
-                    step: 1
-                },
+                html: `
+                    <p class="text-muted small mb-2">Masukkan tahun rekod latihan yang ingin dicetak, atau pilih "Cetak Semua Tahun":</p>
+                    <input type="number" id="swal-input-tahun" class="form-control text-center mb-3" value="${tahunSemasa}" placeholder="Cth: 2026">
+                `,
                 showCancelButton: true,
                 showDenyButton: true,
                 confirmButtonText: '<i class="fas fa-calendar-alt me-1"></i> Cetak Mengikut Tahun',
                 denyButtonText: '<i class="fas fa-list me-1"></i> Cetak Semua Tahun',
                 cancelButtonText: 'Batal',
                 confirmButtonColor: '#550000',
-                denyButtonColor: '#2ed573'
+                denyButtonColor: '#2ed573',
+                preConfirm: () => {
+                    return document.getElementById('swal-input-tahun').value;
+                }
             });
 
-            if (result.isDismissed) return;
-
-            // Pastikan Seksyen Latihan Dipaparkan Sewaktu Cetakan
-            document.getElementById('section-utama').style.display = 'none';
-            document.getElementById('section-latihan').style.display = 'block';
-
-            const trList = document.querySelectorAll('#senaraiLatihanBody tr');
-
-            if (result.isConfirmed) {
-                // Cetak Mengikut Tahun Tertentu
-                const tahunPilihan = String(result.value).trim();
-                trList.forEach(tr => {
-                    const tarikhTd = tr.querySelector('td:nth-child(4)');
-                    if (tarikhTd && tahunPilihan !== "") {
-                        const teksTarikh = tarikhTd.innerText.trim();
-                        const parts = teksTarikh.split('/');
-                        const tahunRekod = parts.length === 3 ? parts[2].trim() : '';
-                        
-                        if (tahunRekod !== tahunPilihan) {
-                            tr.classList.add('d-none-print');
-                        } else {
-                            tr.classList.remove('d-none-print');
-                        }
-                    } else {
-                        tr.classList.remove('d-none-print');
-                    }
-                });
-            } else if (result.isDenied) {
+            if (result) {
+                // Cetak Mengikut Tahun yang dimasukkan dalam input
+                switchTab('latihan');
+                muatDataLatihan(result);
+                setTimeout(() => { window.print(); }, 600);
+            } else if (result === false && Swal.getState().isDenied) {
                 // Cetak Semua Tahun
-                trList.forEach(tr => tr.classList.remove('d-none-print'));
+                switchTab('latihan');
+                muatDataLatihan('semua');
+                setTimeout(() => { window.print(); }, 600);
             }
-
-            // Kelewatan kecil 200ms bagi memastikan DOM pelayar sedia sebelum mencetak
-            setTimeout(() => {
-                window.print();
-
-                // Pulihkan paparan selepas tetingkap cetak ditutup
-                setTimeout(() => {
-                    trList.forEach(tr => tr.classList.remove('d-none-print'));
-                }, 500);
-            }, 200);
         }
 
         window.bukaDialogHapus = async function() {
@@ -530,8 +554,10 @@
 
             if (nomorBil) {
                 const indexArray = parseInt(nomorBil) - 1;
+                
                 if (window.senaraiIdDokumen && window.senaraiIdDokumen[indexArray]) {
                     const docIdYangDipadam = window.senaraiIdDokumen[indexArray];
+
                     const sahPadam = await Swal.fire({
                         title: 'Anda pasti?',
                         text: `Rekod Bilangan ${nomorBil} akan dipadam dari sistem.`,
@@ -558,7 +584,7 @@
         }
 
         window.switchTab = function(tabName) {
-            document.querySelectorAll('.menu-grid-main .menu-card').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.menu-card').forEach(el => el.classList.remove('active'));
             
             if(tabName === 'utama') {
                 document.getElementById('btn-tab-utama').classList.add('active');
@@ -574,11 +600,14 @@
 
         window.simpanDataFirebase = async function() {
             const btn = document.getElementById('btnSimpan');
+            
             let jenis = document.getElementById('jenisLatihan').value;
             if (jenis === 'Lain-lain') jenis = document.getElementById('divLainJenis').value;
+
             let namaLatihan = document.getElementById('namaLatihan').value;
             let tarikhMula = document.getElementById('tarikhMula').value;
             let tarikhTamat = document.getElementById('tarikhTamat').value;
+
             let tempat = document.getElementById('tempatLatihan').value;
             if (tempat === 'Lain-lain') tempat = document.getElementById('divLainTempat').value;
 
@@ -625,7 +654,7 @@
             }
         }
 
-        async function muatDataLatihan() {
+        async function muatDataLatihan(tahunTapis = 'semua') {
             const tbody = document.getElementById('senaraiLatihanBody');
             if(!tbody) return;
             
@@ -645,9 +674,16 @@
 
                 querySnapshot.forEach((docSnap) => {
                     const data = docSnap.data();
+                    
+                    const tahunMula = data.tarikhMula ? data.tarikhMula.split('-')[0] : '';
+                    if (tahunTapis !== 'semua' && tahunMula !== String(tahunTapis)) {
+                        return;
+                    }
+
                     totalLatihan++;
                     totalHari += Number(data.tempohHariNum || 0);
                     latihanTerbaru = data.namaLatihan || "-";
+
                     window.senaraiIdDokumen.push(docSnap.id);
 
                     const formatTarikh = (dateStr) => {
@@ -673,7 +709,7 @@
                 });
 
                 if(totalLatihan === 0) {
-                    rows = `<tr><td colspan="7" class="text-center py-3 text-muted">Tiada rekod latihan dijumpai.</td></tr>`;
+                    rows = `<tr><td colspan="7" class="text-center py-3 text-muted">Tiada rekod latihan dijumpai untuk tahun ${tahunTapis === 'semua' ? 'semasa' : tahunTapis}.</td></tr>`;
                 }
 
                 tbody.innerHTML = rows;
