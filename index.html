@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>e-Latihan Perkhidmatan</title>
-    <!-- Tambah parameter ?v=2.1 untuk paksa browser muat semula CSS terkini -->
+    <!-- Bootstrap 5 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         :root {
@@ -207,17 +209,39 @@
             background-color: var(--primary-maroon-dark);
             color: #ffc107;
         }
+
+        /* FORMAT KHUSUS UNTUK CETAKAN */
         @media print {
-            .menu-grid-main, .latihan-actions-grid, .school-banner, .top-banner, .no-print, .btn {
+            .no-print, .menu-grid-main, .latihan-actions-grid, .school-banner, .top-banner, #section-utama, .btn, .modal {
                 display: none !important;
+            }
+            body, html {
+                background: white !important;
+                color: black !important;
             }
             .main-container {
                 max-width: 100% !important;
+                width: 100% !important;
+                margin: 0 !important;
                 padding: 0 !important;
+            }
+            #section-latihan {
+                display: block !important;
             }
             .modern-card {
                 box-shadow: none !important;
                 padding: 0 !important;
+                margin: 0 !important;
+            }
+            .table-responsive {
+                overflow: visible !important;
+            }
+            .table {
+                width: 100% !important;
+                border: 1px solid #000 !important;
+            }
+            .table th, .table td {
+                border: 1px solid #000 !important;
             }
             tr.d-none-print {
                 display: none !important;
@@ -228,9 +252,9 @@
 <body>
     <div class="main-container">
         
-        <div class="top-banner">
+        <div class="top-banner no-print">
             <h3>e-Latihan</h3>
-            <p>(Sistem Rekod Latihan Perkhidmatan) - v2.1</p>
+            <p>(Sistem Rekod Latihan Perkhidmatan) - v2.2</p>
         </div>
 
         <div class="menu-grid-main no-print">
@@ -248,12 +272,13 @@
             </div>
         </div>
 
-        <div class="school-banner">
+        <div class="school-banner no-print">
             <h6>SMU(A) Khairiah Banggol Setol</h6>
             <p>17070 Pasir Mas, Kelantan</p>
             <div class="date-pill" id="live-date">Memuatkan tarikh...</div>
         </div>
 
+        <!-- SEKSYEN 1: UTAMA -->
         <div id="section-utama" class="content-section">
             <div class="modern-card">
                 <h5 class="fw-bold mb-3" style="color: var(--primary-maroon);"><i class="fas fa-chart-pie me-2"></i>Analisa Rekod Latihan</h5>
@@ -273,6 +298,7 @@
             </div>
         </div>
 
+        <!-- SEKSYEN 2: LATIHAN -->
         <div id="section-latihan" class="content-section" style="display: none;">
             <div class="latihan-actions-grid no-print">
                 <div class="menu-card" onclick="bukaModalTambah()">
@@ -323,6 +349,7 @@
         </div>
     </div>
 
+    <!-- MODAL TAMBAH LATIHAN -->
     <div class="modal fade" id="modalTambahLatihan" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content modern-card m-0">
@@ -420,7 +447,7 @@
             modal.show();
         }
 
-        // Fungsi Cetak dengan pilihan Tahun / Semua Tahun
+        // FUNGSI CETAK DENGAN PENAMBAHBAIKAN MENCEGAH SKRIN KOSONG
         window.cetakDenganPengesahanTahun = async function() {
             const tahunSemasa = new Date().getFullYear();
             
@@ -445,18 +472,23 @@
 
             if (result.isDismissed) return;
 
+            // Pastikan Seksyen Latihan Dipaparkan Sewaktu Cetakan
+            document.getElementById('section-utama').style.display = 'none';
+            document.getElementById('section-latihan').style.display = 'block';
+
             const trList = document.querySelectorAll('#senaraiLatihanBody tr');
 
             if (result.isConfirmed) {
-                const tahunPilihan = result.value;
+                // Cetak Mengikut Tahun Tertentu
+                const tahunPilihan = String(result.value).trim();
                 trList.forEach(tr => {
                     const tarikhTd = tr.querySelector('td:nth-child(4)');
                     if (tarikhTd && tahunPilihan !== "") {
                         const teksTarikh = tarikhTd.innerText.trim();
                         const parts = teksTarikh.split('/');
-                        const tahunRekod = parts.length === 3 ? parts[2] : '';
+                        const tahunRekod = parts.length === 3 ? parts[2].trim() : '';
                         
-                        if (tahunRekod !== String(tahunPilihan)) {
+                        if (tahunRekod !== tahunPilihan) {
                             tr.classList.add('d-none-print');
                         } else {
                             tr.classList.remove('d-none-print');
@@ -466,14 +498,19 @@
                     }
                 });
             } else if (result.isDenied) {
+                // Cetak Semua Tahun
                 trList.forEach(tr => tr.classList.remove('d-none-print'));
             }
 
-            window.print();
-
+            // Kelewatan kecil 200ms bagi memastikan DOM pelayar sedia sebelum mencetak
             setTimeout(() => {
-                trList.forEach(tr => tr.classList.remove('d-none-print'));
-            }, 1000);
+                window.print();
+
+                // Pulihkan paparan selepas tetingkap cetak ditutup
+                setTimeout(() => {
+                    trList.forEach(tr => tr.classList.remove('d-none-print'));
+                }, 500);
+            }, 200);
         }
 
         window.bukaDialogHapus = async function() {
