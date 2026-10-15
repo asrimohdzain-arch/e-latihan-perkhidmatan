@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>e-Latihan Perkhidmatan</title>
     <!-- Bootstrap 5 CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css?v=20261015b">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css?v=20261015c">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=20261015b">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=20261015c">
     <!-- SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11?v=20261015b"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11?v=20261015c"></script>
     <style>
         :root {
             --primary-maroon: #550000;
@@ -58,7 +58,7 @@
             opacity: 0.9;
         }
 
-        /* Menu Navigasi Utama - Hanya 2 Butang (Utama & Latihan) */
+        /* Menu Navigasi Utama (Utama & Latihan) */
         .menu-grid-top {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -157,46 +157,46 @@
             margin-bottom: 10px;
         }
 
-        /* Sub-Menu Butang Tindakan dalam Halaman Latihan (Kompak) */
+        /* Sub-Menu Butang Tindakan dalam Halaman Latihan - Pendek & Sama Saiz */
         .latihan-action-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
+            gap: 10px;
             margin-bottom: 14px;
         }
 
         .action-card {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
+            background: white;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
             padding: 8px 10px;
             display: flex;
             align-items: center;
             gap: 8px;
             font-size: 0.78rem;
             font-weight: 700;
-            color: #334155;
+            color: #2c3e50;
             cursor: pointer;
+            box-shadow: var(--card-shadow);
             transition: all 0.2s ease;
+            min-height: 48px;
         }
 
         .action-card.delete-action {
-            grid-column: span 2;
             background: #fff5f5;
-            border-color: #fed7d7;
+            border-color: #feb2b2;
             color: #c0392b;
-            justify-content: center;
         }
 
         .action-card:hover {
-            border-color: #cbd5e1;
-            background: #f1f5f9;
+            border-color: #3182ce;
+            background: #f8fafc;
         }
 
         .action-icon {
-            width: 28px;
-            height: 28px;
-            border-radius: 6px;
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -208,21 +208,22 @@
         /* Penyesuaian Saiz Butang Dalam Kotak Dialog SweetAlert2 */
         .swal2-popup .swal2-styled {
             font-size: 0.75rem !important;
-            padding: 6px 12px !important;
+            padding: 7px 12px !important;
             border-radius: 6px !important;
+            font-weight: 700 !important;
         }
         .swal2-popup .swal2-title {
-            font-size: 1.1rem !important;
+            font-size: 1.15rem !important;
         }
         .swal2-popup .swal2-html-container {
             font-size: 0.82rem !important;
         }
         .swal2-popup .form-control {
-            font-size: 0.82rem !important;
+            font-size: 0.85rem !important;
             padding: 6px 10px !important;
         }
 
-        /* Table Styling - Saiz Teks 10px & Kotak Ringkas */
+        /* Table Styling */
         .table-responsive {
             width: 100%;
             overflow-x: auto;
@@ -262,7 +263,6 @@
             padding: 3px 6px !important;
         }
 
-        /* Jajaran tengah & kiri jadual */
         .table tbody td:nth-child(1),
         .table tbody td:nth-child(2),
         .table tbody td:nth-child(4),
@@ -325,10 +325,10 @@
         <!-- Top Header Card -->
         <div class="top-banner">
             <h4>e-Latihan</h4>
-            <p>(Sistem Rekod Latihan Perkhidmatan) - v2.4</p>
+            <p>(Sistem Rekod Latihan Perkhidmatan) - v2.5</p>
         </div>
 
-        <!-- Menu Utama ATAS: Hanya 2 Butang -->
+        <!-- Menu Utama ATAS: 2 Butang -->
         <div class="menu-grid-top">
             <div class="menu-card-top active" id="btn-tab-utama" onclick="switchTab('utama')">
                 <div class="menu-icon icon-green">
@@ -374,10 +374,10 @@
             </div>
         </div>
 
-        <!-- SEKSYEN 2: LATIHAN (Mengandungi 3 Butang Tindakan + Jadual) -->
+        <!-- SEKSYEN 2: LATIHAN (Tiga Butang Pendek Sama Saiz & Jadual) -->
         <div id="section-latihan" class="content-section" style="display: none;">
             
-            <!-- 3 Butang Tindakan Diletakkan Di Sini (Kompak) -->
+            <!-- 3 Butang Tindakan (Butang Pendek & Sama Saiz) -->
             <div class="latihan-action-grid no-print">
                 <div class="action-card" onclick="bukaModalTambah()">
                     <div class="action-icon icon-blue">
@@ -397,7 +397,7 @@
                     <div class="action-icon icon-darkred">
                         <i class="fas fa-trash-alt"></i>
                     </div>
-                    <div>Hapus Rekod Latihan</div>
+                    <div>Hapus Rekod</div>
                 </div>
             </div>
 
@@ -405,7 +405,6 @@
             <div class="modern-card">
                 <h6 class="fw-bold mb-3" style="color: var(--primary-maroon);"><i class="fas fa-list me-2"></i>Senarai Rekod Latihan</h6>
 
-                <!-- Jadual Ringkas & Padat -->
                 <div class="table-responsive">
                     <table class="table table-hover align-middle mb-0">
                         <thead>
@@ -493,7 +492,7 @@
     </div>
 
     <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js?v=20261015b"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js?v=20261015c"></script>
 
     <!-- Firebase SDK (Modular v10) -->
     <script type="module">
@@ -535,7 +534,7 @@
             modal.show();
         }
 
-        // Fungsi Cetak Menyeluruh & Mengikut Tahun (Kompak)
+        // Kotak Dialog Cetak (Mengandungi Cetak Mengikut Tahun & Cetak Semua Tahun)
         window.bukaPilihanCetak = async function() {
             const tahunSemasa = new Date().getFullYear();
 
