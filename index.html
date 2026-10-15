@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>e-Latihan Perkhidmatan</title>
     <!-- Bootstrap 5 CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css?v=20261015c">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css?v=20261015d">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=20261015c">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=20261015d">
     <!-- SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11?v=20261015c"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11?v=20261015d"></script>
     <style>
         :root {
             --primary-maroon: #550000;
@@ -58,7 +58,7 @@
             opacity: 0.9;
         }
 
-        /* Menu Navigasi Utama (Utama & Latihan) */
+        /* Menu Navigasi Utama ATAS (Utama & Latihan) */
         .menu-grid-top {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -205,9 +205,9 @@
             flex-shrink: 0;
         }
 
-        /* Penyesuaian Saiz Butang Dalam Kotak Dialog SweetAlert2 */
+        /* Styling Butang Dialog SweetAlert2 */
         .swal2-popup .swal2-styled {
-            font-size: 0.75rem !important;
+            font-size: 0.78rem !important;
             padding: 7px 12px !important;
             border-radius: 6px !important;
             font-weight: 700 !important;
@@ -322,10 +322,10 @@
 
     <div class="main-container">
         
-        <!-- Top Header Card -->
+        <!-- Top Header Card (Teks Versi Dibuang) -->
         <div class="top-banner">
             <h4>e-Latihan</h4>
-            <p>(Sistem Rekod Latihan Perkhidmatan) - v2.5</p>
+            <p>(Sistem Rekod Latihan Perkhidmatan)</p>
         </div>
 
         <!-- Menu Utama ATAS: 2 Butang -->
@@ -492,7 +492,7 @@
     </div>
 
     <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js?v=20261015c"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js?v=20261015d"></script>
 
     <!-- Firebase SDK (Modular v10) -->
     <script type="module">
@@ -534,11 +534,11 @@
             modal.show();
         }
 
-        // Kotak Dialog Cetak (Mengandungi Cetak Mengikut Tahun & Cetak Semua Tahun)
+        // Kotak Pengesahan Cetak Lengkap (Dwi-Butang: Cetak Mengikut Tahun & Cetak Semua Tahun)
         window.bukaPilihanCetak = async function() {
             const tahunSemasa = new Date().getFullYear();
 
-            const { value: result } = await Swal.fire({
+            const result = await Swal.fire({
                 title: 'Pengesahan Cetak',
                 html: `
                     <p class="text-muted small mb-2">Masukkan tahun rekod latihan yang ingin dicetak, atau pilih "Cetak Semua Tahun":</p>
@@ -556,12 +556,16 @@
                 }
             });
 
-            if (result) {
-                muatDataLatihan(result);
-                setTimeout(() => { window.print(); }, 600);
-            } else if (result === false && Swal.getState().isDenied) {
-                muatDataLatihan('semua');
-                setTimeout(() => { window.print(); }, 600);
+            if (result.isConfirmed && result.value) {
+                // Cetak mengikut tahun yang diisi
+                switchTab('latihan');
+                await muatDataLatihan(result.value);
+                setTimeout(() => { window.print(); }, 500);
+            } else if (result.isDenied) {
+                // Cetak semua tahun
+                switchTab('latihan');
+                await muatDataLatihan('semua');
+                setTimeout(() => { window.print(); }, 500);
             }
         }
 
