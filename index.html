@@ -27,9 +27,10 @@
             color: #333;
         }
         .main-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+            width: 100%;
+            max-width: 100% !important;
+            margin: 0;
+            padding: 20px 24px;
         }
         /* Top Banner Card (Gaya Gambar 2) */
         .top-banner {
@@ -67,7 +68,7 @@
         /* Layout Utama: Sidebar Kiri & Kandungan Kanan */
         .app-layout {
             display: grid;
-            grid-template-columns: 260px 1fr;
+            grid-template-columns: 280px 1fr;
             gap: 20px;
             align-items: start;
         }
@@ -191,9 +192,14 @@
         /* Sub-Menu Butang Tindakan dalam Halaman Latihan */
         .latihan-action-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            grid-template-columns: repeat(3, minmax(140px, 200px));
             gap: 10px;
             margin-bottom: 15px;
+        }
+        @media (max-width: 992px) {
+            .latihan-action-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            }
         }
         .action-card {
             background: white;
@@ -260,7 +266,7 @@
             border-radius: 8px;
         }
         .table {
-            min-width: 600px;
+            width: 100%;
             font-size: 11px !important;
         }
         .table thead {
@@ -268,7 +274,7 @@
             color: white !important;
         }
         .table thead th {
-            padding: 8px 10px !important;
+            padding: 9px 12px !important;
             font-weight: 700;
             font-size: 11px !important;
             border: none;
@@ -278,7 +284,7 @@
             white-space: nowrap;
         }
         .table tbody td {
-            padding: 7px 10px !important;
+            padding: 8px 12px !important;
             font-size: 11px !important;
             vertical-align: middle;
         }
